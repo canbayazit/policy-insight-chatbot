@@ -22,7 +22,13 @@ const FileUploader: React.FC = () => {
     try {
       const { data } = await api.post("/upload", formData);
       console.log("uploaded", data);
-      setStatus("success");      
+      setStatus("success");    
+      // kayıt nesnesi yarat + mevcut listeyi oku + ekle + 20 ile sınırla
+      const record = { id: crypto.randomUUID(), name: file.name, uploadedAt: Date.now() };
+      const raw = localStorage.getItem("recentAnalyses");
+      const list = raw ? (JSON.parse(raw) as any[]) : [];
+      const next = [record, ...list.filter((x) => x.id !== record.id)].slice(0, 20);
+      localStorage.setItem("recentAnalyses", JSON.stringify(next));  
       navigate(`/chat`);
     } catch {
       setStatus("error");
