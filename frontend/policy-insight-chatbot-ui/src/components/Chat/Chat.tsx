@@ -1,12 +1,13 @@
-import React, { useRef, useState, type FormEvent } from "react";
+import React, { useEffect, useRef, useState, type FormEvent } from "react";
 import ChatMessage from "../ChatMessage/ChatMessage";
 import type { ChatItem } from "../../global/interfaces/Chat";
 import { api } from "../../global/lib/axios";
 
 const Chat: React.FC = () => {
-  const [chatHistory, setChatHistory] = useState<ChatItem[]>([]);
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [chatHistory, setChatHistory] = useState<ChatItem[]>([]);  
   const [isThinking, setIsThinking] = useState<boolean>(false);  
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const chatRef = useRef<HTMLInputElement | null>(null);
 
   const generateBotResponse = async (question: string): Promise<string> => {
     try {
@@ -56,9 +57,14 @@ const Chat: React.FC = () => {
     setIsThinking(false);
   }
 
+  useEffect(() => {
+    chatRef.current?.scrollTo({top: chatRef.current?.scrollHeight, behavior:"smooth"})  
+  }, [chatHistory])
+  
+
   return (
     <div className="flex-1 flex flex-col min-h-0 h-full">
-      <div className="flex-1 overflow-y-auto p-6 md:p-8">
+      <div ref={chatRef} className="flex-1 overflow-y-auto p-6 md:p-8">
         <div className="max-w-4xl mx-auto space-y-6">
           <div className="max-w-[75%] rounded-lg bg-bot-bubble dark:bg-gray-800 p-4 md:p-6 shadow-card">
             <p className="text-sm dark:text-gray-300">
