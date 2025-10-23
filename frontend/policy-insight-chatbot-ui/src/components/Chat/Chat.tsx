@@ -1,38 +1,29 @@
 import React, { useRef, useState, type FormEvent } from "react";
 import ChatMessage from "../ChatMessage/ChatMessage";
-import axios from "axios";
 import type { ChatItem } from "../../global/interfaces/Chat";
+import { api } from "../../global/lib/axios";
 
 const Chat: React.FC = () => {
   const [chatHistory, setChatHistory] = useState<ChatItem[]>([]);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [isThinking, setIsThinking] = useState<boolean>(false);
+  const [isThinking, setIsThinking] = useState<boolean>(false);  
 
-  const generateBotResponse = async (history: ChatItem[]) => {
-    // Gemini payload’ına çevirme
-    const contents = history.map((m) => ({
-      role: m.role === "user" ? "user" : "model",
-      parts: [{ text: m.text }],
-    }));
-
+  const generateBotResponse = async (question: string): Promise<string> => {
     try {
-      const response = await axios.post(
-        import.meta.env.VITE_GOOGLE_API_URL,
-        {contents }
-      );
-
-      const botText =
-        response.data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ?? "";
-
-      return botText;
-      console.log(response);
+      const { data } = await api.post("/chat", {
+        question,
+        lang:"tr"
+      });
+      console.log(data)
+      return (data?.answer ?? "").toString().trim();
     } catch (e) {
-      console.log(e);
+      console.error(e);
+      return "Üzgünüm, şu an yanıt veremiyorum. Lütfen tekrar deneyin.";
     }
-  };
+  };  
 
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
-     e.preventDefault();
+    e.preventDefault();
     const el = inputRef.current;
     if (!el) return;
 
@@ -40,28 +31,23 @@ const Chat: React.FC = () => {
     if (!userMessage) return;
 
     // Kullanıcı mesajını önce state'e ekle
-    const newHistory = [...chatHistory, { role: "user" as const, text: userMessage }];
+    const newHistory: ChatItem[] = [...chatHistory, { role: "user", text: userMessage }];
     setChatHistory(newHistory);
     el.value = "";
 
-    // düşünme aşaması
-    setIsThinking(true);    
-    setChatHistory((prev) => [
-      ...prev,
-      { role: "assistant", text: "", pending: true },
-    ]);
-
+    // düşünme aşaması    
+    setIsThinking(true);
+    setChatHistory((history) => [...history, { role: "assistant", text: "", pending: true }]);
+    
     // Bot yanıtını al ve ekle
-    const botText = await generateBotResponse(newHistory);
-    // if (botText) {
-    //   setChatHistory((history) => [...history, { role: "assistant", text: botText }]);
-    // }
+    const botText = await generateBotResponse(userMessage);
     setChatHistory((history) => {
       const copy = [...history];
-      // son mesaj pending assistant ise onu güncelle
       for (let i = copy.length - 1; i >= 0; i--) {
-        if (copy[i].role === "assistant" && copy[i].pending) {
-          copy[i] = { role: "assistant", text: botText }; // pending kaldır
+        // keep simple backward loop (works in older TS targets too)
+        const msg = copy[i] as ChatItem & { pending?: boolean };
+        if (msg.role === "assistant" && msg.pending) {
+          copy[i] = { role: "assistant", text: botText };
           break;
         }
       }
@@ -79,13 +65,11 @@ const Chat: React.FC = () => {
               Merhaba! Poliçenizle ilgili sorularınızı bekliyorum.
             </p>
           </div>
-
           {chatHistory.map((chat, index) => (
             <ChatMessage key={index} chat={chat} />
           ))}
         </div>
       </div>
-
       <div className="border-t border-[var(--color-border)] bg-white/90 dark:bg-gray-800/60 backdrop-blur">
         <div className="max-w-4xl mx-auto px-4 py-3">
           <div className="flex items-center gap-2 mb-3 overflow-x-auto scrollbar-none">
@@ -98,7 +82,6 @@ const Chat: React.FC = () => {
               </button>
             ))}
           </div>
-
           <div className="relative flex items-center">
             <form id="chat-form" onSubmit={handleFormSubmit} className="contents">
               <input
@@ -124,7 +107,6 @@ const Chat: React.FC = () => {
               </button>
             </form>
           </div>
-
           <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
             Yanıtlar poliçenizdeki ifadelere dayanır. Kaynak alıntıları mesaj içinde gösterilir.
           </p>
