@@ -11,7 +11,7 @@ interface IRoute {
 
 const routes: IRoute[] = [
   { path: "/", element: <FileUploader /> },
-  { path: "/chat", element: <ChatLayout /> },
+  { path: "/chat/:policy_id", element: <ChatLayout /> },
 ];
 
 const RouteLayout = () => {

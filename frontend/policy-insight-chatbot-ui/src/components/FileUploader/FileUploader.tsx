@@ -24,12 +24,12 @@ const FileUploader: React.FC = () => {
       console.log("uploaded", data);
       setStatus("success");    
       // kayıt nesnesi yarat + mevcut listeyi oku + ekle + 20 ile sınırla
-      const record = { id: crypto.randomUUID(), name: file.name, uploadedAt: Date.now() };
+      const record = { id: data.policy_id, name: data.filename, uploadedAt: Date.now() };
       const raw = localStorage.getItem("recentAnalyses");
       const list = raw ? (JSON.parse(raw) as any[]) : [];
       const next = [record, ...list.filter((x) => x.id !== record.id)].slice(0, 20);
       localStorage.setItem("recentAnalyses", JSON.stringify(next));  
-      navigate(`/chat`);
+      navigate(`/chat/${data.policy_id}`);
     } catch {
       setStatus("error");
     }
@@ -138,7 +138,7 @@ const FileUploader: React.FC = () => {
                 upload
               </span>
             )}
-            <span>{status ? "Yükleniyor" : "Yükle"}</span>
+            <span>{status === "uploading" ? "Yükleniyor" : "Yükle"}</span>
           </button>
         </div>
       </div>
