@@ -23,12 +23,22 @@ const Chat: React.FC = () => {
       if (!policy_id) {
         return "Önce bir poliçe PDF’i yüklemelisiniz.";
       }
-      const collection_name = `policy_${policy_id}`;      
+      const collection_name = `policy_${policy_id}`;
+
+      // düşünme aşamasındaki sohbeti GÖNDERME
+      const historyForServer = chatHistory
+        .filter((m) => !(m as any).pending)
+        .map((m) =>
+          m.role === "user"
+            ? { role: "human", content: m.text }
+            : { role: "ai", content: m.text }
+      );      
       const { data } = await api.post("/chat", {
         question,
         lang: "tr",
         policy_id,
-        collection_name,        
+        collection_name,  
+        historyForServer      
       });
       console.log(data);
       return (data?.answer ?? "").toString().trim();
