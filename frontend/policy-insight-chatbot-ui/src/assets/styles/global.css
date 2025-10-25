@@ -12,12 +12,15 @@
 
   --color-user-bubble: #E9ECEF;
   --color-bot-bubble: #FFFFFF;
+  --color-user-bubble-dark: #1F2937;
+  --color-bot-bubble-dark: #1F2937;
 
   --color-text: #1F2937;
   --color-text-dark: #F3F4F6;
 
   --color-border: #E5E7EB;
-  --color-border-dark: #374151;
+  /* --color-border-dark: #374151; */
+  --color-border-dark: #ffffff50;
 
   --radius: 8px; --radius-lg: 12px; --radius-xl: 16px;
 
@@ -29,6 +32,8 @@
   --color-bg: var(--color-bg-dark);
   --color-text: var(--color-text-dark);
   --color-border: var(--color-border-dark);
+  --color-user-bubble: var(--color-user-bubble-dark); /* gray-800 */
+  --color-bot-bubble:  var(--color-bot-bubble-dark); /* gray-900 */
 }
 
 @layer base {

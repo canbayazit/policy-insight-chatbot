@@ -1,11 +1,13 @@
 import React from "react";
 import type { ChatItem, ChatRole } from "../../global/interfaces/Chat";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeSanitize from "rehype-sanitize";
 
 const roleVariants: Record<ChatRole, string> = {
-  user: "ml-auto bg-user-bubble dark:text-gray-200",
-  assistant: "bg-bot-bubble dark:bg-gray-800 shadow-card dark:text-gray-300",
-  system:
-    "mx-auto bg-gray-50 dark:bg-gray-700/60 text-gray-700 dark:text-gray-200",
+  user: "ml-auto bg-user-bubble shadow-card",
+  assistant: "bg-bot-bubble shadow-card",
+  system: "mx-auto bg-system-bubble text-gray-700 dark:text-gray-200",
 } as const;
 interface IProps {
   chat: ChatItem;
@@ -29,7 +31,12 @@ const ChatMessage: React.FC<IProps> = ({ chat }) => {
           </span>
         </div>
       ) : (
-        <p className="text-sm">{chat.text}</p>
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeSanitize]}
+        >
+          {chat.text}
+        </ReactMarkdown>
       )}
     </div>
   );
