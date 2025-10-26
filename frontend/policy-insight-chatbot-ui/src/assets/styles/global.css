@@ -65,3 +65,9 @@
 
 .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* belirli ikonları büyütmek için */
+.icon-1xl { font-size: 1.5rem !important; }
+.icon-2xl { font-size: 2rem !important; }     /* ~32px */
+.icon-3xl { font-size: 2.5rem !important; }   /* ~40px */
+.icon-4xl { font-size: 3rem !important; } 

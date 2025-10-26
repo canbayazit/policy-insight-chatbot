@@ -37,11 +37,13 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setDark((d) => !d)}
-      className="p-2 rounded-full flex hover:bg-black/5 dark:hover:bg-white/10 text-black/60 dark:text-white/70 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/40"
+      className="p-2 rounded-full flex hover:bg-black/5 dark:hover:bg-white/10
+      text-black/60 dark:text-white/70 focus:outline-none focus:ring-2 
+      focus:ring-[var(--color-accent)]/40  md:text-2xl"
       title={dark ? "Aydınlık moda geç" : "Karanlık moda geç"}
       aria-label="Tema değiştir"
     >
-      <span className="material-symbols-outlined">
+      <span className="material-symbols-outlined icon-2xl">
         {dark ? "light_mode" : "dark_mode"}
       </span>
     </button>
