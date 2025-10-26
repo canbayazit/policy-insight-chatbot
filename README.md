@@ -2,7 +2,7 @@
 
 A web application developed with RAG (Retrieval-Augmented Generation) architecture that reads insurance policies from PDF and answers questions to extract critical details—coverage, deductibles/excess, premiums, and more.
 
-## Tech Stack
+## ⚡ Tech Stack
 - Backend: Flask - Python
 - Frontend: React - JavaScript - TypeScript
 - RAG: LangChain, Chroma
@@ -20,7 +20,7 @@ Insurance policies are notoriously long, filled with technical jargon, and vary 
 To answer a user's natural-language questions **strictly based on the policy content**. The assistant must return concise, bullet-point responses with clear traceability (source references) to the original document.
 
 
-#### ⚙️ RAG Pipeline Flow
+#### ⛓️ RAG Pipeline Flow
 ##### 1. Document Ingestion & Preprocessing
 -  A user uploads a PDF via the `/upload` endpoint.
 -  **PyMuPDF** extracts text page by page.
@@ -39,7 +39,7 @@ To answer a user's natural-language questions **strictly based on the policy con
 -  A precise **System Instruction** is given to the LLM    
 -  The LLM (Gemini) generates an answer based *only* on the provided context and the user's question.
 -  The final response is shown to the user, ideally including page references for verification.
----
+
 
 ## Local Installation Steps
 
