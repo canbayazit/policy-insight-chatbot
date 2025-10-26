@@ -41,7 +41,7 @@ To answer a user's natural-language questions **strictly based on the policy con
 -  The final response is shown to the user, ideally including page references for verification.
 
 
-## Local Installation Steps
+## 🚀 Local Installation Steps
 
 1. Clone the repository:
    ```bash
