@@ -1,4 +1,4 @@
-# Insurance Policy Chatbot Assistant
+# 🕵️ Insurance Policy Chatbot Assistant
 
 A web application developed with RAG (Retrieval-Augmented Generation) architecture that reads insurance policies from PDF and answers questions to extract critical details—coverage, deductibles/excess, premiums, and more.
 
