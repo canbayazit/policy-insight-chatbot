@@ -36,7 +36,7 @@ const AnalysisHistoryPanel: React.FC = () => {
             )}
             {recent.map((r) => (
               <li key={r.policy_id}>
-                <a className="flex items-center justify-between gap-3 px-2 py-2 rounded-md text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a className="flex items-center gap-3 px-2 py-2 rounded-md text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-700">
                   <span className="material-symbols-outlined text-base">
                     description
                   </span>
