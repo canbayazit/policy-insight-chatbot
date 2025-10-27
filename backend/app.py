@@ -1,10 +1,8 @@
 # app.py
 from datetime import datetime
 import os
-import io
 import re
 import uuid
-import shutil
 from typing import List, Dict, Any
 
 from dotenv import load_dotenv
@@ -12,8 +10,6 @@ from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 
 import fitz  # PyMuPDF
-from PIL import Image
-import pytesseract
 
 # ---- LangChain & Models ----
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -36,14 +32,20 @@ import google.generativeai as genai
 # -------------------- Config & Setup --------------------
 load_dotenv()
 
-UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", "uploads")
-CHROMA_DIR = os.getenv("CHROMA_DIR", "chroma_db")
+# UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", "uploads")
+# CHROMA_DIR = os.getenv("CHROMA_DIR", "chroma_db")
+# deploy için /data/uploads gibi bir varsayılan yol verin
+UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", "/data/uploads") 
+CHROMA_DIR = os.getenv("CHROMA_DIR", "/data/chroma_db")
+
 PORT = int(os.getenv("FLASK_PORT", "5001"))
 MAX_PDF_SIZE = 10 * 1024 * 1024  # 10MB
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 MODEL_NAME = os.getenv("GEMINI_MODEL", "models/gemini-2.5-flash")
 EMBEDDINGS_MODEL = "models/text-embedding-004"
 #EMBEDDINGS_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+# Önce canlı URL'yi bir değişkene alın
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
 
 assert GOOGLE_API_KEY, "GOOGLE_API_KEY is missing in .env"
 genai.configure(api_key=GOOGLE_API_KEY)
@@ -53,9 +55,10 @@ app.config.update(
     UPLOAD_FOLDER=UPLOAD_FOLDER,
     SECRET_KEY=os.environ.get("FLASK_SECRET_KEY", os.urandom(24)),
 )
+
 CORS(
     app,
-    resources={r"/*": {"origins": ["http://localhost:5173"]}},
+    resources={r"/*": {"origins": [FRONTEND_URL]}}, # Sadece canlıda
     supports_credentials=True,
     expose_headers=["Content-Type"],
 )
