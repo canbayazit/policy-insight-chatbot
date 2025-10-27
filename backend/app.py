@@ -1,4 +1,5 @@
 # app.py
+from datetime import datetime
 import os
 import io
 import re
@@ -271,7 +272,13 @@ def upload():
     session["collection_name"] = collection_name
     session.setdefault("chat_history", [])
 
-    return jsonify({"ok": True, "filename": file.filename, "policy_id": policy_id, "collection_name": collection_name})
+    return jsonify({
+        "ok": True, 
+        "filename": file.filename, 
+        "policy_id": policy_id, 
+        "collection_name": collection_name,
+        "created_at": datetime.now().strftime('%d.%m.%Y %H:%M')
+        })
 
 @app.route("/chat", methods=["POST"])
 def chat():
