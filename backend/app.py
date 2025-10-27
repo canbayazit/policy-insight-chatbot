@@ -32,11 +32,11 @@ import google.generativeai as genai
 # -------------------- Config & Setup --------------------
 load_dotenv()
 
-# UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", "uploads")
-# CHROMA_DIR = os.getenv("CHROMA_DIR", "chroma_db")
-# deploy için /data/uploads gibi bir varsayılan yol verin
-UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", "/data/uploads") 
-CHROMA_DIR = os.getenv("CHROMA_DIR", "/data/chroma_db")
+UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", "uploads")
+CHROMA_DIR = os.getenv("CHROMA_DIR", "chroma_db")
+# deploy için /data/uploads gibi bir varsayılan yol vermen gerekir NOT: render için ücretli
+# UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", "/data/uploads") 
+# CHROMA_DIR = os.getenv("CHROMA_DIR", "/data/chroma_db")
 
 PORT = int(os.getenv("FLASK_PORT", "5001"))
 MAX_PDF_SIZE = 10 * 1024 * 1024  # 10MB
