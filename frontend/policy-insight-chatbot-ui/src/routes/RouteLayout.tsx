@@ -2,7 +2,7 @@ import React, { type JSX } from "react";
 import Header from "../components/Header/Header";
 import FileUploader from "../components/FileUploader/FileUploader";
 import { Routes, Route } from "react-router";
-import ChatLayout from "../components/ChatLayout/ChatLayout";
+import Chat from "../pages/chat/Chat";
 
 interface IRoute {
   path: string;
@@ -11,7 +11,7 @@ interface IRoute {
 
 const routes: IRoute[] = [
   { path: "/", element: <FileUploader /> },
-  { path: "/chat/:policy_id", element: <ChatLayout /> },
+  { path: "/chat/:policy_id", element: <Chat /> },
 ];
 
 const RouteLayout = () => {

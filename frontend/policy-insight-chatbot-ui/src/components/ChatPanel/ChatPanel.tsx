@@ -11,7 +11,7 @@ const quickPrompts: string[] = [
   "Primim ne kadar?",
 ];
 
-const Chat: React.FC = () => {
+const ChatPanel: React.FC = () => {
   const [chatHistory, setChatHistory] = useState<ChatItem[]>([]);
   const [isThinking, setIsThinking] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -171,4 +171,4 @@ const Chat: React.FC = () => {
   );
 };
 
-export default Chat;
+export default ChatPanel;

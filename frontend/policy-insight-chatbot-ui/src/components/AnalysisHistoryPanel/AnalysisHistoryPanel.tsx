@@ -1,15 +1,14 @@
 // src/components/Sidebar.tsx
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import type { IUpload } from "../../global/interfaces/Upload";
 
-type Analysis = { id: string; name: string; uploadedAt: number };
-
-const Sidebar: React.FC = () => {
-  const [recent, setRecent] = useState<Analysis[]>([]);
+const AnalysisHistoryPanel: React.FC = () => {
+  const [recent, setRecent] = useState<IUpload[]>([]);
   useEffect(() => {
     try {
       const raw = localStorage.getItem("recentAnalyses");
-      setRecent(raw ? JSON.parse(raw) as Analysis[] : []);
+      setRecent(raw ? (JSON.parse(raw) as IUpload[]) : []);
     } catch {
       setRecent([]);
     }
@@ -31,13 +30,20 @@ const Sidebar: React.FC = () => {
           </h2>
           <ul className="mt-2 space-y-1">
             {recent.length === 0 && (
-              <li className="px-2 py-2 text-sm text-gray-500">Henüz kayıt yok</li>
+              <li className="px-2 py-2 text-sm text-gray-500">
+                Henüz kayıt yok
+              </li>
             )}
             {recent.map((r) => (
-              <li key={r.id}>
-                <a className="flex items-center gap-3 px-2 py-2 rounded-md text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-700">
-                  <span className="material-symbols-outlined text-base">description</span>
-                  <span className="truncate">{r.name}</span>
+              <li key={r.policy_id}>
+                <a className="flex items-center justify-between gap-3 px-2 py-2 rounded-md text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <span className="material-symbols-outlined text-base">
+                    description
+                  </span>
+                  <span className="truncate">{r.filename}</span>
+                  {/* <span className="shrink-0 w-24 text-right text-[11px] text-gray-500 dark:text-gray-400 tnum">
+                    {r.created_at}
+                  </span> */}
                 </a>
               </li>
             ))}
@@ -48,4 +54,4 @@ const Sidebar: React.FC = () => {
   );
 };
 
-export default Sidebar;
+export default AnalysisHistoryPanel;
