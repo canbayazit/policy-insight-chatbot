@@ -1,4 +1,3 @@
-import React from "react";
 import type { ChatItem, ChatRole } from "../../global/interfaces/Chat";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
