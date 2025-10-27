@@ -1,6 +1,7 @@
 import React, { useState, type ChangeEvent } from "react";
 import { api } from "../../global/lib/axios";
 import { useNavigate } from "react-router-dom";
+import type { IUpload } from "../../global/interfaces/Upload";
 
 type UploadStatus = "idle" | "uploading" | "success" | "error";
 
@@ -20,15 +21,22 @@ const FileUploader: React.FC = () => {
     const formData = new FormData();
     formData.append("file", file);
     try {
-      const { data } = await api.post("/upload", formData);
+      const { data } = await api.post<IUpload>("/upload", formData);
       console.log("uploaded", data);
       setStatus("success");    
       // kayıt nesnesi yarat + mevcut listeyi oku + ekle + 20 ile sınırla
-      const record = { id: data.policy_id, name: data.filename, uploadedAt: Date.now() };
       const raw = localStorage.getItem("recentAnalyses");
-      const list = raw ? (JSON.parse(raw) as any[]) : [];
-      const next = [record, ...list.filter((x) => x.id !== record.id)].slice(0, 20);
-      localStorage.setItem("recentAnalyses", JSON.stringify(next));  
+      const policyList = raw ? (JSON.parse(raw) as IUpload[]) : [];
+      const existPolicy = policyList.find(x => x.policy_id === data.policy_id);
+      const onlyDate = (s?: string) => (s ? s.split(" ")[0] : "");
+      let newPolicyList:IUpload[];
+      if (existPolicy) {
+        const updated = { ...existPolicy, uploadedAt: onlyDate(data.created_at) };
+        newPolicyList = [updated, ...policyList.filter(x => x.policy_id !== data.policy_id)].slice(0, 20);
+      } else {
+        newPolicyList = [data, ...policyList].slice(0, 20);
+      }
+      localStorage.setItem("recentAnalyses", JSON.stringify(newPolicyList));  
       navigate(`/chat/${data.policy_id}`);
     } catch {
       setStatus("error");
@@ -59,8 +67,8 @@ const FileUploader: React.FC = () => {
           bg-white dark:bg-gray-800
           px-6 md:px-8 py-10 md:py-12
           transition-colors
-          hover:border-[var(--color-accent)]
-          hover:bg-[color-mix(in_oklab,_var(--color-accent)_/10%,_transparent)]
+          hover:border-accent
+          hover:bg-[color-mix(in_oklab,var(--color-accent)_/10%,transparent)]
           cursor-pointer
         "
         >
