@@ -12,7 +12,7 @@ from flask_cors import CORS
 import fitz  # PyMuPDF
 
 # ---- LangChain & Models ----
-from langchain_huggingface import HuggingFaceEmbeddings
+# from langchain_huggingface import HuggingFaceEmbeddings
 # from langchain_google_genai import GoogleGenerativeAIEmbeddings  # alternatif
 from langchain_community.vectorstores import Chroma
 from langchain.text_splitter import RecursiveCharacterTextSplitter
