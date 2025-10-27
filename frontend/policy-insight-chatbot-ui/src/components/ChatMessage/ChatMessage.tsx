@@ -13,7 +13,7 @@ interface IProps {
   chat: ChatItem;
 }
 
-const ChatMessage: React.FC<IProps> = ({ chat }) => {
+const ChatMessage = ({ chat }: IProps) => {
   return (
     <div
       className={`max-w-[75%] rounded-lg p-4 md:p-6 ${roleVariants[chat.role]}`}

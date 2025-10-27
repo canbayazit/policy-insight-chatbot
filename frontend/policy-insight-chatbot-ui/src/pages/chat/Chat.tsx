@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import AnalysisHistoryPanel from '../../components/AnalysisHistoryPanel/AnalysisHistoryPanel'
 import ChatPanel from '../../components/ChatPanel/ChatPanel'
 

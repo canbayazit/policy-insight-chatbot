@@ -1,4 +1,4 @@
-import React, { type JSX } from "react";
+import { type JSX } from "react";
 import Header from "../components/Header/Header";
 import FileUploader from "../components/FileUploader/FileUploader";
 import { Routes, Route } from "react-router";

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import ChatMessage from "../ChatMessage/ChatMessage";
 import type { ChatItem } from "../../global/interfaces/Chat";
 import { api } from "../../global/lib/axios";
@@ -11,7 +11,7 @@ const quickPrompts: string[] = [
   "Primim ne kadar?",
 ];
 
-const ChatPanel: React.FC = () => {
+const ChatPanel = () => {
   const [chatHistory, setChatHistory] = useState<ChatItem[]>([]);
   const [isThinking, setIsThinking] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);

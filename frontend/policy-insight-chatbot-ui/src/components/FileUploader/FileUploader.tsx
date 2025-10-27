@@ -1,11 +1,11 @@
-import React, { useState, type ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import { api } from "../../global/lib/axios";
 import { useNavigate } from "react-router-dom";
 import type { IUpload } from "../../global/interfaces/Upload";
 
 type UploadStatus = "idle" | "uploading" | "success" | "error";
 
-const FileUploader: React.FC = () => {
+const FileUploader = () => {
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<UploadStatus>("idle");
   const navigate = useNavigate();

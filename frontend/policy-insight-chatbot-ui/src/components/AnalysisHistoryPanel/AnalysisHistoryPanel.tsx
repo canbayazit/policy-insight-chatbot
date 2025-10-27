@@ -1,9 +1,9 @@
 // src/components/Sidebar.tsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { IUpload } from "../../global/interfaces/Upload";
 
-const AnalysisHistoryPanel: React.FC = () => {
+const AnalysisHistoryPanel = () => {
   const [recent, setRecent] = useState<IUpload[]>([]);
   useEffect(() => {
     try {

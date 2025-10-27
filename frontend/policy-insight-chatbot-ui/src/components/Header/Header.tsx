@@ -1,8 +1,7 @@
-import React from "react";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import { Link } from "react-router-dom";
 
-const Header: React.FC = () => {
+const Header = () => {
   return (
     <header className="h-16 flex items-center justify-between px-4 md:px-6 border-b border-border bg-white/90 dark:bg-gray-800/60 backdrop-blur">
       <Link
