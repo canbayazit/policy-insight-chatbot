@@ -1,5 +1,6 @@
 import AnalysisHistoryPanel from '../../components/AnalysisHistoryPanel/AnalysisHistoryPanel'
 import ChatPanel from '../../components/ChatPanel/ChatPanel'
+import DeveloperInfo from '../../components/DeveloperInfo/DeveloperInfo'
 
 const Chat = () => {
   return (
@@ -10,6 +11,10 @@ const Chat = () => {
       <section className="flex-1 min-w-0 min-h-0 flex flex-col">
         <ChatPanel />
       </section>
+      <aside className="flex w-80 shrink-0 flex-col border-l border-gray-200 dark:border-gray-700 bg-background-light dark:bg-background-dark p-6">
+        <DeveloperInfo/>
+      </aside>
+      
     </div>
   )
 }

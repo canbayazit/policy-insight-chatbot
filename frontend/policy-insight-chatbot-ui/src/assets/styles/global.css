@@ -6,6 +6,7 @@
 
   --color-primary: #0A2A5B;
   --color-accent: #4DB6AC;
+  --color-linkedin: #0077b5;
 
   --color-bg: #F8F9FA;
   --color-bg-dark: #121212;
@@ -34,6 +35,7 @@
   --color-border: var(--color-border-dark);
   --color-user-bubble: var(--color-user-bubble-dark); /* gray-800 */
   --color-bot-bubble:  var(--color-bot-bubble-dark); /* gray-900 */
+  --color-linkedin:  var( --color-text-dark); /* gray-900 */
 }
 
 @layer base {
