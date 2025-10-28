@@ -99,15 +99,18 @@ const ChatPanel = () => {
     });
   }, [chatHistory]);
 
+  useEffect(() => {
+    setChatHistory((history) =>
+      history.length === 0
+        ? [{ role: "system", text: "Merhaba! Poliçenizle ilgili sorularınızı bekliyorum." }]
+        : history
+    );
+  }, []);
+
   return (
     <div className="flex-1 flex flex-col min-h-0 h-full">
       <div ref={chatRef} className="flex-1 overflow-y-auto p-6 md:p-8">
-        <div className="max-w-4xl mx-auto space-y-6">
-          <div className="max-w-[75%] rounded-lg bg-bot-bubble dark:bg-gray-800 p-4 md:p-6 shadow-card">
-            <p className="text-sm dark:text-gray-300">
-              Merhaba! Poliçenizle ilgili sorularınızı bekliyorum.
-            </p>
-          </div>
+        <div className="max-w-4xl mx-auto space-y-6">          
           {chatHistory.map((chat, index) => (
             <ChatMessage key={index} chat={chat} />
           ))}
