@@ -28,7 +28,6 @@ To answer a user's natural-language questions **strictly based on the policy con
 ##### 1. Document Ingestion & Preprocessing
 -  A user uploads a PDF via the `/upload` endpoint.
 -  **PyMuPDF** extracts text page by page.
--  If no machine-readable text is found (e.g., a scanned PDF)
 -  The extracted raw text is split into optimized `chunks` (e.g., 1000-1500 characters with 300-character overlap).
 -  Each `chunk` is enriched with metadata, such as `{ policy_id, page_number }`.
 ##### 2. Vectorization & Indexing
