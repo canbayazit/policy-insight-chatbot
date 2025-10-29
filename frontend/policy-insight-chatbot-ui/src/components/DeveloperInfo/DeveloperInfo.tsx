@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import avatar from "../../assets/img/Gemini_Generated_Image_5tj98t5tj98t5tj9.png";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
 const DeveloperInfo = () => {
   return (
@@ -27,7 +30,7 @@ const DeveloperInfo = () => {
           to="https://github.com/canbayazit"
           target="_blank"
         >
-          <i className="fab fa-github fa-3x"></i>
+          <FontAwesomeIcon icon={faGithub} size="3x" />
         </Link>
         <Link
           aria-label="LinkedIn profili"
@@ -35,7 +38,7 @@ const DeveloperInfo = () => {
           to="https://www.linkedin.com/in/canbayazit/"
           target="_blank"
         >
-          <i className="fab fa-linkedin-in fa-3x"></i>
+          <FontAwesomeIcon icon={faLinkedinIn} size="3x" />
         </Link>
       </div>
     </div>
