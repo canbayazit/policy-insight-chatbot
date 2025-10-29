@@ -30,6 +30,7 @@ To answer a user's natural-language questions **strictly based on the policy con
 -  **PyMuPDF** extracts text page by page.
 -  The extracted raw text is split into optimized `chunks` (e.g., 1000-1500 characters with 300-character overlap).
 -  Each `chunk` is enriched with metadata, such as `{ policy_id, page_number }`.
+>⚠️If your PDF is **image-only** (e.g., scanned documents or policies exported as images), there may be **no selectable text** to index, so RAG answers will not work !
 ##### 2. Vectorization & Indexing
 -  All text `chunks` are converted into vector embeddings (numerical representations) using Google's `text-embedding-004` model.
 -  These vectors are stored in a persistent **ChromaDB** collection, uniquely named (e.g., `policy_{policy_id}`).
@@ -48,8 +49,8 @@ To answer a user's natural-language questions **strictly based on the policy con
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/enesmanan/paper-bold.git
-   cd paper-bold
+   git clone https://github.com/canbayazit/policy-insight-chatbot.git
+   cd backend
    ```
 
 2. Create and activate a virtual environment:
@@ -74,4 +75,15 @@ To answer a user's natural-language questions **strictly based on the policy con
    python app.py
    ```
 
-6. Go to `http://localhost:5001` in your browser
+6. Install required packages for frontend:
+   ```bash
+   cd frontent/policy-insight-chatbot-ui
+   npm install
+   ```
+
+5. Run the application for frontend:
+   ```bash
+   npm run dev
+   ```
+
+6. Go to `http://localhost:5173` in your browser
