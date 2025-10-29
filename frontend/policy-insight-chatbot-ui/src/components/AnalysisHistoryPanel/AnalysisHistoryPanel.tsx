@@ -1,7 +1,7 @@
-// src/components/Sidebar.tsx
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { IUpload } from "../../global/interfaces/Upload";
+import moment from "moment";
 
 const AnalysisHistoryPanel = () => {
   const [recent, setRecent] = useState<IUpload[]>([]);
@@ -14,7 +14,7 @@ const AnalysisHistoryPanel = () => {
     }
   }, []);
   return (
-    <aside className="w-72 shrink-0 bg-white dark:bg-gray-800 border-r border-[var(--color-border)] h-full overflow-y-auto">
+    <div className="w-72 shrink-0 bg-white dark:bg-gray-800 border-r border-[var(--color-border)] h-full overflow-y-auto">
       <div className="p-4">
         <Link
           to="/"
@@ -40,17 +40,17 @@ const AnalysisHistoryPanel = () => {
                   <span className="material-symbols-outlined text-base">
                     description
                   </span>
-                  <span className="truncate">{r.filename}</span>
-                  {/* <span className="shrink-0 w-24 text-right text-[11px] text-gray-500 dark:text-gray-400 tnum">
-                    {r.created_at}
-                  </span> */}
+                  <span className="truncate" title={r.filename}>{r.filename}</span>
+                  <span className="shrink-0 w-24 text-right text-[11px] text-gray-500 dark:text-gray-400 tnum">
+                    {moment(r.created_at.toString()).startOf('seconds').fromNow()}
+                  </span>
                 </a>
               </li>
             ))}
           </ul>
         </nav>
       </div>
-    </aside>
+    </div>
   );
 };
 

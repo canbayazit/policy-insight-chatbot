@@ -2,6 +2,7 @@ import { useState, type ChangeEvent } from "react";
 import { api } from "../../global/lib/axios";
 import { useNavigate } from "react-router-dom";
 import type { IUpload } from "../../global/interfaces/Upload";
+import moment from "moment";
 
 type UploadStatus = "idle" | "uploading" | "success" | "error";
 
@@ -23,20 +24,15 @@ const FileUploader = () => {
     try {
       const { data } = await api.post<IUpload>("/upload", formData);
       console.log("uploaded", data);
-      setStatus("success");    
-      // kayıt nesnesi yarat + mevcut listeyi oku + ekle + 20 ile sınırla
+      setStatus("success");
+      const createdIso = moment(data.created_at, "DD.MM.YYYY HH:mm").toISOString();
       const raw = localStorage.getItem("recentAnalyses");
       const policyList = raw ? (JSON.parse(raw) as IUpload[]) : [];
-      const existPolicy = policyList.find(x => x.policy_id === data.policy_id);
-      const onlyDate = (s?: string) => (s ? s.split(" ")[0] : "");
-      let newPolicyList:IUpload[];
-      if (existPolicy) {
-        const updated = { ...existPolicy, uploadedAt: onlyDate(data.created_at) };
-        newPolicyList = [updated, ...policyList.filter(x => x.policy_id !== data.policy_id)].slice(0, 20);
-      } else {
-        newPolicyList = [data, ...policyList].slice(0, 20);
-      }
-      localStorage.setItem("recentAnalyses", JSON.stringify(newPolicyList));  
+      const newPolicyList: IUpload[] = [
+        { ...data, created_at: createdIso },
+        ...policyList.filter((x) => x.policy_id !== data.policy_id),
+      ].slice(0, 20);
+      localStorage.setItem("recentAnalyses", JSON.stringify(newPolicyList));
       navigate(`/chat/${data.policy_id}`);
     } catch {
       setStatus("error");
