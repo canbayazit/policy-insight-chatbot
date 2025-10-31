@@ -14,7 +14,7 @@ const AnalysisHistoryPanel = () => {
     }
   }, []);
   return (
-    <div className="w-72 shrink-0 bg-white dark:bg-gray-800 border-r border-[var(--color-border)] h-full overflow-y-auto">
+    <div className="bg-white dark:bg-gray-800 border-r border-border h-full overflow-y-auto">
       <div className="p-4">
         <Link
           to="/"
@@ -36,13 +36,20 @@ const AnalysisHistoryPanel = () => {
             )}
             {recent.map((r) => (
               <li key={r.policy_id}>
-                <a className="flex items-center gap-3 px-2 py-2 rounded-md text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-700">
-                  <span className="material-symbols-outlined text-base">
-                    description
-                  </span>
-                  <span className="truncate" title={r.filename}>{r.filename}</span>
-                  <span className="shrink-0 w-24 text-right text-[11px] text-gray-500 dark:text-gray-400 tnum">
-                    {moment(r.created_at.toString()).startOf('seconds').fromNow()}
+                <a className="flex items-center justify-between gap-3 px-2 py-2 rounded-md text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <div className="flex items-center">
+                    <span className="material-symbols-outlined text-base">
+                      description
+                    </span>
+                    <span className="truncate ml-1" title={r.filename}>
+                      {r.filename}
+                    </span>
+                  </div>
+                  <span className="text-right text-[11px] text-gray-500 dark:text-gray-400 tnum">
+                    {moment(r.created_at.toString())
+                      .locale('tr')
+                      .startOf("seconds")
+                      .fromNow()}
                   </span>
                 </a>
               </li>
