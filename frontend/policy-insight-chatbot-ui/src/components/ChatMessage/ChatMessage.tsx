@@ -29,7 +29,7 @@ const ChatMessage = ({ chat }: IProps) => {
           </p>
         </div>
         <div
-          className={`max-w-[75%] rounded-lg p-4 md:p-6 ${chatRoleConfig.positionClass} ${chatRoleConfig.messageClass}`}
+          className={`max-w-[75%] max-md:max-w-full rounded-lg p-4 md:p-6 ${chatRoleConfig.positionClass} ${chatRoleConfig.messageClass}`}
         >
           {chat.pending ? (
             <div className="flex items-center gap-2">

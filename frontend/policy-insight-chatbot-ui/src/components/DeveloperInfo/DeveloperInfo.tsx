@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import avatar from "../../assets/img/Gemini_Generated_Image_5tj98t5tj98t5tj9.png";
+import avatar from "../../assets/img/Gemini_Generated_Image_12tfd912tfd912tf.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
 const DeveloperInfo = () => {
   return (
-    <div className="flex flex-col items-center gap-4 text-center">
+    <div className="max-lg:justify-center max-lg:h-full m-6 flex flex-col items-center gap-4 text-center">
       <img
         alt="Developer Avatar"
         className="size-24 rounded-full border-2 border-primary shadow-md"        
@@ -16,11 +16,11 @@ const DeveloperInfo = () => {
         <h2 className="text-xl font-bold text-text-main-light dark:text-text-main-dark">
           Can Bayazit
         </h2>
-        <span className="inline-flex items-center font-bold rounded-full bg-accent/20  px-3 py-1 text-xs text-text shadow-sm">
+        <span className="flex-1 inline-flex items-center font-bold rounded-full bg-accent/20  px-3 py-1 text-xs text-text shadow-sm">
           Full Stack Developer
         </span>
       </div>
-      <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-2">
+      <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-2 hyphens-auto wrap-break-word" lang="tr">
         Policy Insight uygulamasını tasarlayan ve geliştiren yazılımcı
       </p>
       <div className="mt-2 flex gap-6">
