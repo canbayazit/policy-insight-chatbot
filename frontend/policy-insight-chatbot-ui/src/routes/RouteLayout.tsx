@@ -1,32 +1,41 @@
-import { type JSX } from "react";
-import Header from "../components/Header/Header";
-import FileUploader from "../components/FileUploader/FileUploader";
-import { Routes, Route } from "react-router";
-import Chat from "../pages/chat/Chat";
+import Home from "../pages/Home/Home";
+import { type RouteObject, useRoutes } from "react-router";
+import MainLayout from "../Layouts/MainLayout";
+import ChatPanel from "../pages/Chat/ChatPanel";
+import AnalysisHistoryPanel from "../components/AnalysisHistoryPanel/AnalysisHistoryPanel";
+import DeveloperInfo from "../components/DeveloperInfo/DeveloperInfo";
+import MobileOnly from "./guard/MobileOnly";
 
-interface IRoute {
-  path: string;
-  element: JSX.Element;
-}
-
-const routes: IRoute[] = [
-  { path: "/", element: <FileUploader /> },
-  { path: "/chat/:policy_id", element: <Chat /> },
+const routes: RouteObject[] = [
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: "chat/:policy_id", element: <ChatPanel /> },
+      {
+        path: "history",
+        element: (
+          <MobileOnly>
+            <AnalysisHistoryPanel />
+          </MobileOnly>
+        ),
+      },
+      {
+        path: "dev",
+        element: (
+          <MobileOnly>
+            <DeveloperInfo />
+          </MobileOnly>
+        ),
+      },
+    ],
+  },
 ];
 
 const RouteLayout = () => {
-  return (
-    <div className="lg:h-screen max-lg:h-dvh flex flex-col bg-gray-50 dark:bg-gray-900">
-      <Header />
-      <main className="flex-1 min-h-0">
-        <Routes>
-          {routes.map((route : IRoute) => (
-            <Route key={route.path} path={route.path} element={route.element} />
-          ))}
-        </Routes>
-      </main>
-    </div>
-  );
+  const element = useRoutes(routes);
+  return element;
 };
 
 export default RouteLayout;
