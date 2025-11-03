@@ -8,12 +8,14 @@
   --color-accent: #4DB6AC;
   --color-linkedin: #0077b5;
 
-  --color-bg: #F8F9FA;
-  --color-bg-dark: #121212;
+  --color-bg: #FFFFFF;
+  --color-bg-dark: #101828;
+  --color-bg-alt: #F8F9FA;
+  --color-bg-dark-alt: #182232;
 
   --color-user-bubble: #E9ECEF;
-  --color-bot-bubble: #FFFFFF;
   --color-user-bubble-dark: #1F2937;
+  --color-bot-bubble: #FFFFFF;
   --color-bot-bubble-dark: #1F2937;
 
   --color-text: #1F2937;
@@ -31,11 +33,12 @@
 
 :root.dark {
   --color-bg: var(--color-bg-dark);
+  --color-bg-alt: var(--color-bg-dark-alt);
   --color-text: var(--color-text-dark);
   --color-border: var(--color-border-dark);
-  --color-user-bubble: var(--color-user-bubble-dark); /* gray-800 */
-  --color-bot-bubble:  var(--color-bot-bubble-dark); /* gray-900 */
-  --color-linkedin:  var( --color-text-dark); /* gray-900 */
+  --color-user-bubble: var(--color-user-bubble-dark);
+  --color-bot-bubble:  var(--color-bot-bubble-dark);
+  --color-linkedin:  var( --color-text-dark);
 }
 
 @layer base {
@@ -58,18 +61,27 @@
   }
 }
 
-/* Yardımcı util'ler (opsiyonel) */
-.shadow-soft { box-shadow: var(--shadow-soft); }
-.shadow-card { box-shadow: var(--shadow-card); }
-.rounded-brand { border-radius: var(--radius); }
-.rounded-brand-lg { border-radius: var(--radius-lg); }
-.rounded-brand-xl { border-radius: var(--radius-xl); }
+/* Yardımcı util'ler */
+@layer utilities {
+  .bg-user-bubble { background-color: var(--color-user-bubble); }
+  .bg-bot-bubble { background-color: var(--color-bot-bubble); }
 
-.scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
-.scrollbar-none::-webkit-scrollbar { display: none; }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-card { box-shadow: var(--shadow-card); }
+  .rounded-brand { border-radius: var(--radius); }
+  .rounded-brand-lg { border-radius: var(--radius-lg); }
+  .rounded-brand-xl { border-radius: var(--radius-xl); }
 
-/* belirli ikonları büyütmek için */
-.icon-1xl { font-size: 1.5rem !important; }
-.icon-2xl { font-size: 2rem !important; }     /* ~32px */
-.icon-3xl { font-size: 2.5rem !important; }   /* ~40px */
-.icon-4xl { font-size: 3rem !important; } 
+  .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+
+  /* belirli ikonları büyütmek için */
+  .icon-1xl { font-size: 1.5rem !important; }
+  .icon-2xl { font-size: 2rem !important; }  
+  .icon-3xl { font-size: 2.5rem !important; }  
+  .icon-4xl { font-size: 3rem !important; } 
+  .icon-5xl { font-size: 3.5rem !important; }
+  .icon-6xl { font-size: 4rem !important; }
+}
+
+

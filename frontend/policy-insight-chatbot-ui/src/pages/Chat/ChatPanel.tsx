@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import ChatMessage from "../ChatMessage/ChatMessage";
+import ChatMessage from "../../components/ChatMessage/ChatMessage";
 import type { ChatItem } from "../../global/interfaces/Chat";
 import { api } from "../../global/lib/axios";
 import { useParams } from "react-router-dom";
@@ -116,7 +116,7 @@ const ChatPanel = () => {
           ))}
         </div>
       </div>
-      <div className="border-t border-[var(--color-border)] bg-white/90 dark:bg-gray-800/60 backdrop-blur">
+      <div className="border-t border-border backdrop-blur bg-bg-alt">
         <div className="max-w-4xl mx-auto px-4 py-3">
           <div className="flex items-center gap-2 mb-3 overflow-x-auto scrollbar-none">
             {quickPrompts.map((message, index) => (
@@ -124,7 +124,8 @@ const ChatPanel = () => {
                 key={index}
                 onClick={() => sendMessage(message)}
                 disabled={isThinking}
-                className="px-4 py-2 text-sm font-semibold border border-gray-300 dark:border-gray-600 rounded-full text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/10 transition-colors whitespace-nowrap disabled:opacity-60"
+                className="px-4 py-2 text-sm font-semibold border border-gray-300 dark:border-gray-600 rounded-full 
+                hover:bg-black/5 dark:hover:bg-white/10 transition-colors whitespace-nowrap disabled:opacity-60"
                 title={message}
               >
                 {message}
@@ -147,15 +148,15 @@ const ChatPanel = () => {
                 autoComplete="off"
                 disabled={isThinking}
                 className="w-full max-h-[200px] py-3 pl-12 pr-14 rounded-full bg-gray-100 dark:bg-gray-700
-                 border border-transparent focus:ring-2 focus:ring-[var(--color-accent)]
-                 focus:border-transparent text-[var(--color-text)]
+                 border border-transparent 
+                 text-text
                  placeholder-gray-500 dark:placeholder-gray-400 disabled:opacity-70"
               />
               <button
                 type="submit"
                 form="chat-form"
                 disabled={isThinking}
-                className="absolute right-1 p-2 flex justify-center items-center rounded-full bg-[var(--color-accent)] text-white hover:opacity-90 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                className="absolute right-1 p-2 flex justify-center items-center rounded-full bg-accent text-white hover:opacity-90 disabled:bg-gray-300 disabled:cursor-not-allowed"
                 aria-label="Gönder"
               >
                 <span className="material-symbols-outlined">

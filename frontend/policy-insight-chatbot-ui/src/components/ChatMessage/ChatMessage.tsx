@@ -15,8 +15,8 @@ const ChatMessage = ({ chat }: IProps) => {
   const chatRoleConfig = ROLE_CONFIG[chat.role] ?? ROLE_CONFIG.system;;
   return (
     <div className="flex items-end gap-3">
-      {chat.role !== Role.user && <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700">
-        <span className="material-symbols-outlined text-text">
+      {chat.role !== Role.user && <div className="flex size-9 shrink-0 items-center justify-center rounded-full ">
+        <span className="material-symbols-outlined ">
           {chatRoleConfig.icon}
         </span>
       </div>}

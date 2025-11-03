@@ -14,11 +14,11 @@ const AnalysisHistoryPanel = () => {
     }
   }, []);
   return (
-    <div className="bg-white dark:bg-gray-800 border-r border-border h-full overflow-y-auto">
+    <div className="h-full overflow-y-auto">
       <div className="p-4">
         <Link
           to="/"
-          className="flex items-center justify-center w-full gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-accent)] text-white font-bold text-sm hover:opacity-90 transition-colors shadow-soft focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/40"
+          className="flex items-center justify-center w-full gap-2 px-4 py-2.5 rounded-lg bg-accent text-white font-bold text-sm hover:opacity-90 transition-colors shadow-soft focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/40"
           aria-label="Yeni analiz başlat"
         >
           <span className="material-symbols-outlined">add</span>
@@ -36,8 +36,8 @@ const AnalysisHistoryPanel = () => {
             )}
             {recent.map((r) => (
               <li key={r.policy_id}>
-                <a className="flex items-center justify-between gap-3 px-2 py-2 rounded-md text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-700">
-                  <div className="flex items-center">
+                <a className="flex items-center justify-between  gap-3 px-2 py-2 rounded-md text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <div className="flex items-center flex-2 min-w-0">
                     <span className="material-symbols-outlined text-base">
                       description
                     </span>
@@ -45,7 +45,7 @@ const AnalysisHistoryPanel = () => {
                       {r.filename}
                     </span>
                   </div>
-                  <span className="text-right text-[11px] text-gray-500 dark:text-gray-400 tnum">
+                  <span className="flex-1 min-w-0 text-right text-[11px] text-gray-500 dark:text-gray-400 tnum">
                     {moment(r.created_at.toString())
                       .locale('tr')
                       .startOf("seconds")

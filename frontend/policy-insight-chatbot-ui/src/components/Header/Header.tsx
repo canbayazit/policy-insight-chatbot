@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="h-16 flex items-center justify-between px-4 md:px-6 border-b border-border bg-white/90 dark:bg-gray-800/60 backdrop-blur">
+    <header className="h-16 flex items-center justify-between px-4 md:px-6 border-b border-border backdrop-blur">
       <Link
         to="/"
         className="flex items-center gap-1 min-w-0 md:text-3xl"
