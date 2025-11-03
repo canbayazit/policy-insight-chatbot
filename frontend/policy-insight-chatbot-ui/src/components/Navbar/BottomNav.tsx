@@ -1,11 +1,7 @@
-import { TABS, type BottomTab } from "../../global/interfaces/BottomTab";
+import { NavLink } from "react-router-dom";
+import { TABS } from "../../global/interfaces/BottomTab";
 
-interface IProps {
-  active: BottomTab;
-  onChange: (t: BottomTab) => void;
-}
-
-const BottomNav = ({ active, onChange }: IProps) => {
+const BottomNav = () => {
   return (
     <nav
       className="bg-white/95 dark:bg-gray-900/95 border-t border-border
@@ -16,21 +12,19 @@ const BottomNav = ({ active, onChange }: IProps) => {
       <ul className="grid grid-cols-3">
         {TABS.map((tab) => (
           <li key={tab.key}>
-            <button
+            <NavLink
+              to={tab.to}
               type="button"
-              onClick={() => onChange(tab.key)}
-              className={`w-full h-14 flex flex-col items-center justify-center gap-0.5
+              className={({ isActive }) =>`w-full h-14 flex flex-col items-center justify-center gap-0.5
                           text-xs font-medium
                           ${
-                            active === tab.key
+                            isActive
                               ? "text-accent"
                               : "text-gray-600 dark:text-gray-300"
-                          }`}
-              aria-current={active === tab.key ? "page" : undefined}
-            >
+                          }`}>
               <span className="material-symbols-outlined">{tab.icon}</span>
               {tab.label}
-            </button>
+            </NavLink>
           </li>
         ))}
       </ul>
