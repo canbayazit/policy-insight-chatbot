@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import ChatMessage from "../../components/ChatMessage/ChatMessage";
-import type { ChatItem } from "../../global/interfaces/Chat";
+import { Role, type ChatItem } from "../../global/interfaces/Chat";
 import { api } from "../../global/lib/axios";
 import { useParams } from "react-router-dom";
 
@@ -29,7 +29,7 @@ const ChatPanel = () => {
       const historyForServer = chatHistory
         .filter((m) => !(m as any).pending)
         .map((m) =>
-          m.role === "user"
+          m.role === Role.user
             ? { role: "human", content: m.text }
             : { role: "ai", content: m.text }
       );      
@@ -54,7 +54,7 @@ const ChatPanel = () => {
     // Kullanıcı mesajını önce state'e ekle
     const newHistory: ChatItem[] = [
       ...chatHistory,
-      { role: "user", text: userMessage },
+      { role: Role.user, text: userMessage },
     ];
     setChatHistory(newHistory);
 
@@ -62,7 +62,7 @@ const ChatPanel = () => {
     setIsThinking(true);
     setChatHistory((history) => [
       ...history,
-      { role: "assistant", text: "", pending: true },
+      { role: Role.assistant, text: "", pending: true },
     ]);
 
     // Bot yanıtını al ve ekle
@@ -70,10 +70,9 @@ const ChatPanel = () => {
     setChatHistory((history) => {
       const copy = [...history];
       for (let i = copy.length - 1; i >= 0; i--) {
-        // keep simple backward loop (works in older TS targets too)
         const msg = copy[i] as ChatItem & { pending?: boolean };
-        if (msg.role === "assistant" && msg.pending) {
-          copy[i] = { role: "assistant", text: botText };
+        if (msg.role === Role.assistant && msg.pending) {
+          copy[i] = { role: msg.role, text: botText };
           break;
         }
       }
@@ -102,7 +101,7 @@ const ChatPanel = () => {
   useEffect(() => {
     setChatHistory((history) =>
       history.length === 0
-        ? [{ role: "system", text: "Merhaba! Poliçenizle ilgili sorularınızı bekliyorum." }]
+        ? [{ role: Role.system, text: "Merhaba! Poliçenizle ilgili sorularınızı bekliyorum." }]
         : history
     );
   }, []);
