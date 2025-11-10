@@ -1,18 +1,9 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import type { IUpload } from "../../global/interfaces/Upload";
 import moment from "moment";
+import { useRecentAnalyses } from "../../store/recentAnalysis";
 
 const AnalysisHistoryPanel = () => {
-  const [recent, setRecent] = useState<IUpload[]>([]);
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem("recentAnalyses");
-      setRecent(raw ? (JSON.parse(raw) as IUpload[]) : []);
-    } catch {
-      setRecent([]);
-    }
-  }, []);
+   const recent = useRecentAnalyses(state => state.items);  
   return (
     <div className="h-full overflow-y-auto">
       <div className="p-4">

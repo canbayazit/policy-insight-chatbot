@@ -3,12 +3,14 @@ import { api } from "../../global/lib/axios";
 import { useNavigate } from "react-router-dom";
 import type { IUpload } from "../../global/interfaces/Upload";
 import moment from "moment";
+import { useRecentAnalyses } from "../../store/recentAnalysis";
 
 type UploadStatus = "idle" | "uploading" | "success" | "error";
 
 const Home = () => {
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<UploadStatus>("idle");
+  const addOrUpdate = useRecentAnalyses(state => state.addOrUpdate);
   const navigate = useNavigate();
 
   function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
@@ -29,13 +31,14 @@ const Home = () => {
         data.created_at,
         "DD.MM.YYYY HH:mm"
       ).toISOString();
-      const raw = localStorage.getItem("recentAnalyses");
-      const policyList = raw ? (JSON.parse(raw) as IUpload[]) : [];
-      const newPolicyList: IUpload[] = [
-        { ...data, created_at: createdIso },
-        ...policyList.filter((x) => x.policy_id !== data.policy_id),
-      ].slice(0, 20);
-      localStorage.setItem("recentAnalyses", JSON.stringify(newPolicyList));
+      addOrUpdate({ ...data, created_at: createdIso });
+      // const raw = localStorage.getItem("recentAnalyses");
+      // const policyList = raw ? (JSON.parse(raw) as IUpload[]) : [];
+      // const newPolicyList: IUpload[] = [
+      //   { ...data, created_at: createdIso },
+      //   ...policyList.filter((x) => x.policy_id !== data.policy_id),
+      // ].slice(0, 20);
+      // localStorage.setItem("recentAnalyses", JSON.stringify(newPolicyList));
       navigate(`/chat/${data.policy_id}`);
     } catch {
       setStatus("error");
