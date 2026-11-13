@@ -3,7 +3,6 @@ import { type RouteObject, useRoutes } from "react-router";
 import MainLayout from "../Layouts/MainLayout";
 import ChatPanel from "../pages/Chat/ChatPanel";
 import AnalysisHistoryPanel from "../components/AnalysisHistoryPanel/AnalysisHistoryPanel";
-import DeveloperInfo from "../components/DeveloperInfo/DeveloperInfo";
 import MobileOnly from "./guard/MobileOnly";
 
 const routes: RouteObject[] = [
@@ -20,15 +19,7 @@ const routes: RouteObject[] = [
             <AnalysisHistoryPanel />
           </MobileOnly>
         ),
-      },
-      {
-        path: "dev",
-        element: (
-          <MobileOnly>
-            <DeveloperInfo />
-          </MobileOnly>
-        ),
-      },
+      },      
     ],
   },
 ];
