@@ -1,5 +1,4 @@
 import AnalysisHistoryPanel from "../components/AnalysisHistoryPanel/AnalysisHistoryPanel";
-import DeveloperInfo from "../components/DeveloperInfo/DeveloperInfo";
 import BottomNav from "../components/Navbar/BottomNav";
 import Header from "../components/Header/Header";
 import { Outlet } from "react-router-dom";
@@ -21,10 +20,7 @@ const MainLayout = () => {
             </aside>
             <section className="hidden lg:block flex-2 overflow-auto bg-bg-alt">
               <Outlet />
-            </section>
-            <aside className="hidden lg:block flex-1 border-l border-border overflow-auto bg-bg-alt">
-              <DeveloperInfo />
-            </aside>
+            </section>            
           </div>
           <div className="lg:hidden">
             <BottomNav />
